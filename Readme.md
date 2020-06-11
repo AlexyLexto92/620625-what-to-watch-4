@@ -1,7 +1,6 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Алексей Толстоног](https://up.htmlacademy.ru/react/4/user/620625).
-* Наставник: `Неизвестно`.
 
 ---
 
