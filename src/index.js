@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from './components/app.jsx';
-const settings = {
+import App from './components/app/app.jsx';
+export const settings = {
   genre: `Sport`,
   releaseData: 1992,
 };
-const films = [{
+export const films = [{
   img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
   descr: `Fantastic Beasts`,
   title: `Fantastic Beasts: The Crimes of Grindelwald`

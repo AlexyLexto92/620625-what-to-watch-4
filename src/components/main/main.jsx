@@ -1,5 +1,5 @@
 import React from 'react';
-import Film from './film.jsx';
+import Film from '../film/film.jsx';
 import PropTypes from 'prop-types';
 const Main = (props) => {
   const {genre, releaseData, films} = props;
