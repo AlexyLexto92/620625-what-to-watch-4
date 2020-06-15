@@ -2,7 +2,7 @@ import React from 'react';
 import Film from '../film/film.jsx';
 import PropTypes from 'prop-types';
 const Main = (props) => {
-  const {genre, releaseData, films} = props;
+  const {genre, releaseData, films, onButtonHendler} = props;
   return <div>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -88,7 +88,7 @@ const Main = (props) => {
           </li>
         </ul>
         <div className="catalog__movies-list">
-          {films.map((film) => <Film key={film.title} film={film} />)}
+          {films.map((film) => <Film key={film.title} film={film} onButtonHendler={onButtonHendler}/>)}
 
         </div>
         <div className="catalog__more">
@@ -114,5 +114,6 @@ Main.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseData: PropTypes.number.isRequired,
   films: PropTypes.array,
+  onButtonHendler: PropTypes.func
 };
 export default Main;

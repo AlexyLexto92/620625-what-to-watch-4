@@ -16,7 +16,8 @@ export const films = [{
   title: `Bohemian Rhapsody`
 }
 ];
+const onButtonHendler = ()=>{};
 ReactDOM.render(
-    <App genre={settings.genre} releaseData={settings.releaseData} films= {films} />,
+    <App genre={settings.genre} releaseData={settings.releaseData} films= {films} onButtonHendler={onButtonHendler} />,
     document.querySelector(`#root`)
 );
