@@ -28,11 +28,6 @@ it(`click on Title`, () => {
   const onHoverHeandler = jest.fn();
   const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={onHoverHeandler}/>);
   const titleButton = filmComponent.find(`a.small-movie-card__link`);
-  const card = filmComponent.find(`article`).first();
-  card.simulate(`mouseenter`, {
-    activeFilm: 1,
-  });
-  expect(onHoverHeandler).toHaveBeenCalledWith({activeFilm: 1});
   titleButton.simulate(`click`);
   expect(onButtonHendler).toHaveBeenCalledTimes(1);
 });
