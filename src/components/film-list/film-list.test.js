@@ -1,10 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
-const settings = {
-  genre: `Sport`,
-  releaseData: 1992,
-};
+import FilmList from './film-list.jsx';
 const films = [{
   backgroundColor: `#A6B7AC`,
   backgroundImage: `https://htmlacademy-react-2.appspot.com/wtw/static/film/background/gangs_of_new_york.jpg`,
@@ -24,8 +20,8 @@ const films = [{
   starring: [`Leonardo DiCaprio`, `Cameron Diaz`, `Daniel Day-Lewis`],
   videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
 }];
-
-it(`<App renderer App`, () => {
-  const tree = renderer.create(<App genre={settings.genre} releaseData={settings.releaseData} films={films} />).toJSON();
+const onButtonHendler = jest.fn();
+it(`FilmList render Filmlist`, () => {
+  const tree = renderer.create(<FilmList films={films} onButtonHendler={onButtonHendler} />).toJSON();
   expect(tree).toMatchSnapshot();
 });
