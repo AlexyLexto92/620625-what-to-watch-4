@@ -1,6 +1,6 @@
 import React from 'react';
-import Film from '../film/film.jsx';
 import PropTypes from 'prop-types';
+import FilmList from '../film-list/film-list.jsx';
 const Main = (props) => {
   const {genre, releaseData, films, onButtonHendler} = props;
   return <div>
@@ -87,10 +87,7 @@ const Main = (props) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-        <div className="catalog__movies-list">
-          {films.map((film) => <Film key={film.title} film={film} onButtonHendler={onButtonHendler}/>)}
-
-        </div>
+        <FilmList films={films} onButtonHendler={onButtonHendler} />
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>
