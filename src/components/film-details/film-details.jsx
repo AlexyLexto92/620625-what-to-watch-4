@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 const FilmDetails = (props) => {
-  const {films, activeFilmId} = props;
-  const currentFilm = films.find((elem) => elem.id === activeFilmId);
+  const {currentFilm} = props;
   return <React.Fragment>
     <section className="movie-card movie-card--full" style={{background: currentFilm.backgroundColor}}>
       <div className="movie-card__hero">

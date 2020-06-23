@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import FilmDetails from './film-details.jsx';
 
-const films = [{
+const currentFilm = {
   backgroundColor: `#A6B7AC`,
   backgroundImage: `https://htmlacademy-react-2.appspot.com/wtw/static/film/background/gangs_of_new_york.jpg`,
   description: `In 1862, Amsterdam Vallon returns to the Five Points area of New York City seeking revenge against Bill the Butcher, his father's killer.`,
@@ -20,9 +20,8 @@ const films = [{
   scoresCount: 370881,
   starring: [`Leonardo DiCaprio`, `Cameron Diaz`, `Daniel Day-Lewis`],
   videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
-}];
-const activeFilmId = 1;
+};
 it(`<Film details> render correct`, ()=>{
-  const tree = renderer.create(<FilmDetails films={films} activeFilmId= {activeFilmId}/>).toJSON();
+  const tree = renderer.create(<FilmDetails currentFilm={currentFilm}/>).toJSON();
   expect(tree).toMatchSnapshot();
 });

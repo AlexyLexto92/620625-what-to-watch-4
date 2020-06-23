@@ -14,11 +14,12 @@ class App extends PureComponent {
   render() {
     const activeFilmId = this.state.activeFilmId;
     const {genre, releaseData, films, onButtonHendler} = this.props;
+    const currentFilm = films.find((elem) => elem.id === activeFilmId);
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main genre={genre} releaseData={releaseData} activeFilmId={activeFilmId} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={this.onCardClickHendler} />
+            <Main genre={genre} releaseData={releaseData} currentFilm={currentFilm} activeFilmId={activeFilmId} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={this.onCardClickHendler} />
           </Route>
         </Switch>
       </BrowserRouter>
