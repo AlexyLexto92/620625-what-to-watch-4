@@ -181,7 +181,7 @@ exports[`<App renderer App 1`] = `
         <article
           className="small-movie-card catalog__movies-card"
           id={1}
-          onMouseDown={[Function]}
+          onClick={[Function]}
           onMouseEnter={[Function]}
         >
           <div
