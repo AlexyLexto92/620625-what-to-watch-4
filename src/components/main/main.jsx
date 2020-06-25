@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
+import FilmDetails from '../film-details/film-details.jsx';
 const Main = (props) => {
-  const {genre, releaseData, films, onButtonHendler} = props;
+  const {onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm} = props;
+  if (activeFilmId > 0) {
+    return < FilmDetails currentFilm={currentFilm}/>;
+  }
   return <div>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -23,34 +27,8 @@ const Main = (props) => {
           </div>
         </div>
       </header>
-      <div className="movie-card__wrap">
-        <div className="movie-card__info">
-          <div className="movie-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width={218} height={327} />
-          </div>
-          <div className="movie-card__desc">
-            <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
-            <p className="movie-card__meta">
-              <span className="movie-card__genre">{genre}</span>
-              <span className="movie-card__year">{releaseData}</span>
-            </p>
-            <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
-                <svg viewBox="0 0 19 19" width={19} height={19}>
-                  <use xlinkHref="#play-s" />
-                </svg>
-                <span>Play</span>
-              </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width={19} height={20}>
-                  <use xlinkHref="#add" />
-                </svg>
-                <span>My list</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+
+
     </section>
     <div className="page-content">
       <section className="catalog">
@@ -87,7 +65,7 @@ const Main = (props) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-        <FilmList films={films} onButtonHendler={onButtonHendler} />
+        <FilmList films={films} onButtonHendler={onButtonHendler} onCardClickHendler={onCardClickHendler} />
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>
@@ -106,11 +84,15 @@ const Main = (props) => {
       </footer>
     </div>
   </div>;
+
 };
 Main.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseData: PropTypes.number.isRequired,
   films: PropTypes.array,
-  onButtonHendler: PropTypes.func
+  onButtonHendler: PropTypes.func,
+  onCardClickHendler: PropTypes.func,
+  activeFilmId: PropTypes.number,
+  currentFilm: PropTypes.object
 };
 export default Main;

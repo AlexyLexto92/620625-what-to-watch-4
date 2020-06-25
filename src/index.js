@@ -9,6 +9,6 @@ export const settings = {
 
 const onButtonHendler = ()=>{};
 ReactDOM.render(
-    <App genre={settings.genre} releaseData={settings.releaseData} films= {films} onButtonHendler={onButtonHendler} />,
+    <App genre={settings.genre} releaseData={settings.releaseData} films={films} onButtonHendler={onButtonHendler} />,
     document.querySelector(`#root`)
 );

@@ -8,7 +8,7 @@ const film = {
   description: `In 1862, Amsterdam Vallon returns to the Five Points area of New York City seeking revenge against Bill the Butcher, his father's killer.`,
   director: `Martin Scorsese`,
   genre: `Crime`,
-  id: 0,
+  id: 1,
   isfavorite: false,
   name: `Gangs of new york`,
   posterImage: `https://htmlacademy-react-2.appspot.com/wtw/static/film/poster/Gangs_of_New_York_Poster.jpg`,
@@ -26,7 +26,7 @@ Enzyme.configure({adapter: new Adapter()});
 it(`click on Title`, () => {
   const onButtonHendler = jest.fn();
   const onHoverHeandler = jest.fn();
-  const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={onHoverHeandler}/>);
+  const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={onHoverHeandler} />);
   const titleButton = filmComponent.find(`a.small-movie-card__link`);
   titleButton.simulate(`click`);
   expect(onButtonHendler).toHaveBeenCalledTimes(1);
@@ -38,7 +38,18 @@ it(`Hover on card`, () => {
   const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={onHoverHeandler} />);
   const card = filmComponent.find(`article`).first();
   card.simulate(`mouseenter`, {
-    activeFilm: 0,
+    activeFilm: 1,
   });
-  expect(onHoverHeandler).toHaveBeenCalledWith({activeFilm: 0});
+  expect(onHoverHeandler).toHaveBeenCalledWith({activeFilm: 1});
+});
+it(`click on filmCard`, () => {
+  const onButtonHendler = jest.fn();
+  const onHoverHeandler = jest.fn();
+  const onCardClickHendler = jest.fn();
+  const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={onHoverHeandler} onCardClickHendler={onCardClickHendler} />);
+  const card = filmComponent.find(`article.small-movie-card`).first();
+  card.simulate(`click`, {
+    activeFilmId: 1,
+  });
+  expect(onCardClickHendler).toHaveBeenCalledWith({activeFilmId: 1});
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 const Film = (props) => {
-  const {film, onButtonHendler, onHoverHeandler} = props;
-  return <article className="small-movie-card catalog__movies-card" id={film.id} onMouseEnter={onHoverHeandler}>
+  const {film, onButtonHendler, onHoverHeandler, onCardClickHendler} = props;
+  return <article className="small-movie-card catalog__movies-card" id={film.id} onMouseEnter={onHoverHeandler} onClick={onCardClickHendler}>
     <div className="small-movie-card__image">
       <img src={film.posterImage} alt={film.description} width={280} height={175} />
     </div>
@@ -19,7 +19,8 @@ Film.propTypes = {
     id: PropTypes.number,
   }),
   onButtonHendler: PropTypes.func,
-  onHoverHeandler: PropTypes.func
+  onHoverHeandler: PropTypes.func,
+  onCardClickHendler: PropTypes.func
 };
 export default Film;
 
