@@ -32,21 +32,11 @@ it(`click on Title`, () => {
   expect(onButtonHendler).toHaveBeenCalledTimes(1);
 });
 
-it(`Hover on card`, () => {
-  const onButtonHendler = jest.fn();
-  const onHoverHeandler = jest.fn();
-  const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={onHoverHeandler} />);
-  const card = filmComponent.find(`article`).first();
-  card.simulate(`mouseenter`, {
-    activeFilm: 1,
-  });
-  expect(onHoverHeandler).toHaveBeenCalledWith({activeFilm: 1});
-});
 it(`click on filmCard`, () => {
   const onButtonHendler = jest.fn();
-  const onHoverHeandler = jest.fn();
+  const handlerMouseEnter = jest.fn();
   const onCardClickHendler = jest.fn();
-  const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={onHoverHeandler} onCardClickHendler={onCardClickHendler} />);
+  const filmComponent = shallow(<Film onButtonHendler={onButtonHendler} film={film} onHoverHeandler={handlerMouseEnter} onCardClickHendler={onCardClickHendler} />);
   const card = filmComponent.find(`article.small-movie-card`).first();
   card.simulate(`click`, {
     activeFilmId: 1,

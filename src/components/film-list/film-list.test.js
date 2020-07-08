@@ -22,6 +22,10 @@ const films = [{
 }];
 const onButtonHendler = jest.fn();
 it(`FilmList render Filmlist`, () => {
-  const tree = renderer.create(<FilmList films={films} onButtonHendler={onButtonHendler} />).toJSON();
+  const tree = renderer.create(<FilmList films={films} onButtonHendler={onButtonHendler} />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
   expect(tree).toMatchSnapshot();
 });
