@@ -25,6 +25,10 @@ const films = [{
   videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
 }];
 it(`<Main> renderer Main`, () => {
-  const tree = renderer.create(<Main genre={settings.genre} releaseData={settings.releaseData} films={films} />).toJSON();
+  const tree = renderer.create(<Main genre={settings.genre} releaseData={settings.releaseData} films={films} />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -13,11 +13,8 @@ class Player extends PureComponent {
     video.muted = true;
     if (isPlaying) {
       video.play();
-    } else {
-      video.pause();
     }
   }
-
   componentDidUpdate() {
 
     const {isPlaying, previewVideoLink} = this.props;
@@ -51,10 +48,8 @@ class Player extends PureComponent {
 
 Player.propTypes = {
   posterImage: PropTypes.string,
-  isMuted: PropTypes.bool,
   previewVideoLink: PropTypes.string,
   isPlaying: PropTypes.bool,
-  src: PropTypes.string,
 };
 export default Player;
 

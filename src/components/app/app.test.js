@@ -26,6 +26,10 @@ const films = [{
 }];
 
 it(`<App renderer App`, () => {
-  const tree = renderer.create(<App genre={settings.genre} releaseData={settings.releaseData} films={films} />).toJSON();
+  const tree = renderer.create(<App genre={settings.genre} releaseData={settings.releaseData} films={films} />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
   expect(tree).toMatchSnapshot();
 });

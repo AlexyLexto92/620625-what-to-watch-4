@@ -23,6 +23,10 @@ const film = {
 
 const onHoverHeandler = jest.fn();
 it(`<Film render film`, () => {
-  const tree = renderer.create(<Film film={film} onHoverHeandler={onHoverHeandler} />).toJSON();
+  const tree = renderer.create(<Film film={film} onHoverHeandler={onHoverHeandler} />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -49,6 +49,7 @@ class Film extends PureComponent {
 }
 Film.propTypes = {
   film: PropTypes.shape({
+    posterImage: PropTypes.string,
     previewImage: PropTypes.string,
     description: PropTypes.string,
     name: PropTypes.string,
@@ -57,7 +58,8 @@ Film.propTypes = {
   }),
   onButtonHendler: PropTypes.func,
   onHoverHeandler: PropTypes.func,
-  onCardClickHendler: PropTypes.func
+  onCardClickHendler: PropTypes.func,
+  isPlaying: PropTypes.bool
 };
 export default Film;
 

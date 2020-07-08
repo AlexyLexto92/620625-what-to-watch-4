@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Player from '../player/player.jsx';
+import Player from './player.jsx';
 
 const film = {
   backgroundColor: `#A6B7AC`,
@@ -22,8 +22,8 @@ const film = {
   videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
 };
 const isPlaying = false;
-it(< player render correct />, () => {
-  const tree = renderer.create(< Player previewVideoLink={film.previewVideoLink} posterImage={film.posterImage} isPlaying={isPlaying} poster= {film.posterImage} />, {
+it(`<player /> render correct `, () => {
+  const tree = renderer.create(<Player previewVideoLink={film.previewVideoLink} posterImage={film.posterImage} isPlaying={isPlaying} />, {
     createNodeMock: () => {
       return {};
     }
