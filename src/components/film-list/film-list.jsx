@@ -11,11 +11,18 @@ class FilmList extends PureComponent {
   }
 
   render() {
-    const {films, onButtonHendler, onCardClickHendler} = this.props;
+    const {isDetails, currentFilm, films, onButtonHendler, onCardClickHendler} = this.props;
+    if (isDetails) {
+      const likelyFilms = films.slice().filter((elem) => elem.genre === currentFilm.genre);
+      return <div className="catalog__movies-list">
+        {likelyFilms.map((film) => <Film key={film.name} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
+      </div>;
+    }
     return <div className="catalog__movies-list">
       {films.map((film) => <Film key={film.name} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
     </div>;
   }
+
   hoverHeandler(evt) {
     const id = evt.currentTarget.id;
     this.setState({activeFilm: id});
@@ -24,8 +31,10 @@ class FilmList extends PureComponent {
 }
 
 FilmList.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.array,
   onButtonHendler: PropTypes.func,
-  onCardClickHendler: PropTypes.func
+  onCardClickHendler: PropTypes.func,
+  isDetails: PropTypes.bool,
+  currentFilm: PropTypes.object,
 };
 export default FilmList;
