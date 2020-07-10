@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Film from '../film/film.jsx';
+import {connect} from 'react-redux';
+
 class FilmList extends PureComponent {
   constructor(props) {
     super(props);
@@ -11,15 +13,22 @@ class FilmList extends PureComponent {
   }
 
   render() {
-    const {isDetails, currentFilm, films, onButtonHendler, onCardClickHendler} = this.props;
+    const {filteredList, filmList, genreActive} = this.props;
+    const {isDetails, currentFilm, onButtonHendler, onCardClickHendler} = this.props;
+    let renderedFilms = [];
+    if (genreActive === `All genres`) {
+      renderedFilms = filmList;
+    } else {
+      renderedFilms = filteredList;
+    }
     if (isDetails) {
-      const likelyFilms = films.slice().filter((elem) => elem.genre === currentFilm.genre);
+      const likelyFilms = filmList.filter((elem) => elem.genre === currentFilm.genre);
       return <div className="catalog__movies-list">
         {likelyFilms.map((film) => <Film key={film.name} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
       </div>;
     }
     return <div className="catalog__movies-list">
-      {films.map((film) => <Film key={film.name} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
+      {renderedFilms.map((film) => <Film key={film.name} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
     </div>;
   }
 
@@ -31,10 +40,20 @@ class FilmList extends PureComponent {
 }
 
 FilmList.propTypes = {
-  films: PropTypes.array,
+  filmList: PropTypes.array,
+  filteredList: PropTypes.array,
   onButtonHendler: PropTypes.func,
   onCardClickHendler: PropTypes.func,
   isDetails: PropTypes.bool,
   currentFilm: PropTypes.object,
+  genreActive: PropTypes.string,
 };
-export default FilmList;
+
+const mapStateToProps = (state) => ({
+  filteredList: state.filteredList,
+  filmList: state.filmList,
+  genreActive: state.genreActive,
+});
+
+export {FilmList};
+export default connect(mapStateToProps)(FilmList);

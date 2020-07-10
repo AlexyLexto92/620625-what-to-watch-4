@@ -161,3 +161,4 @@ export const films = [{
   starring: [`Robert De Niro`, `James Woods`, `Elizabeth McGovern`],
   videoLink: `http://media.xiph.org/mango/tears_of_steel_1080p.webm`,
 }];
+export default films;
