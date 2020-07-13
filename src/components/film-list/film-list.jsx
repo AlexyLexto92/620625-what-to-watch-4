@@ -13,22 +13,24 @@ class FilmList extends PureComponent {
   }
 
   render() {
-    const {filteredList, filmList, genreActive} = this.props;
+    const {filteredList, filmList, genreActive, filmsCount} = this.props;
     const {isDetails, currentFilm, onButtonHendler, onCardClickHendler} = this.props;
     let renderedFilms = [];
+
     if (genreActive === `All genres`) {
-      renderedFilms = filmList;
+      renderedFilms = filmList.slice(0, filmsCount);
     } else {
-      renderedFilms = filteredList;
+      renderedFilms = filteredList.slice(0, filmsCount);
     }
+
     if (isDetails) {
       const likelyFilms = filmList.filter((elem) => elem.genre === currentFilm.genre);
       return <div className="catalog__movies-list">
-        {likelyFilms.map((film) => <Film key={film.name} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
+        {likelyFilms.map((film) => <Film key={film.id} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
       </div>;
     }
     return <div className="catalog__movies-list">
-      {renderedFilms.map((film) => <Film key={film.name} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
+      {renderedFilms.map((film) => <Film key={film.id} film={film} onButtonHendler={onButtonHendler} onHoverHeandler={this.hoverHeandler} onCardClickHendler={onCardClickHendler} />)}
     </div>;
   }
 
@@ -47,12 +49,14 @@ FilmList.propTypes = {
   isDetails: PropTypes.bool,
   currentFilm: PropTypes.object,
   genreActive: PropTypes.string,
+  filmsCount: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
   filteredList: state.filteredList,
   filmList: state.filmList,
   genreActive: state.genreActive,
+  filmsCount: state.filmsCount,
 });
 
 export {FilmList};

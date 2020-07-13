@@ -8,12 +8,13 @@ class GanresList extends PureComponent {
 
   }
   render() {
-    const {filterFilms, changeFilter, genreActive, genres} = this.props;
+    const {filterFilms, changeFilter, genreActive, genres, reloadFilmsCount} = this.props;
     return <ul className="catalog__genres-list">
       {
         genres.map((genre) => <li key={genre} className={genre === genreActive ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}><a href="#" onClick={() => {
           changeFilter(genre);
           filterFilms(genre);
+          reloadFilmsCount();
         }} className="catalog__genres-link">{genre}</a></li>)}
     </ul>;
   }
@@ -23,6 +24,7 @@ GanresList.propTypes = {
   changeFilter: PropTypes.func,
   genreActive: PropTypes.string,
   filterFilms: PropTypes.func,
+  reloadFilmsCount: PropTypes.func,
   genres: PropTypes.array,
 };
 
@@ -34,7 +36,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeFilter: (genre) => dispatch(ActionCreator.changeFilter(genre)),
-  filterFilms: (genre) => dispatch(ActionCreator.filterFilms(genre))
+  filterFilms: (genre) => dispatch(ActionCreator.filterFilms(genre)),
+  reloadFilmsCount: () => dispatch(ActionCreator.reloadFilmsCount()),
 });
 
 
