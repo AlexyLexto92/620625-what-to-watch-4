@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {FilmList} from './film-list.jsx';
+import FilmList from './film-list.jsx';
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {films} from '../../mocks/films.js';
+import films from '../../mocks/films.js';
 const mockStore = configureStore([]);
 const currentFilm = {
   backgroundColor: `#A6B7AC`,
@@ -36,7 +36,7 @@ it(`FilmList render Filmlist`, () => {
   });
   const tree = renderer.create(
       <Provider store={store}>
-        <FilmList isDetails={isDetails} currentFilm={currentFilm} onButtonHendler={onButtonHendler} filmList = {films} />
+        <FilmList isDetails={isDetails} currentFilm={currentFilm} onButtonHendler={onButtonHendler} />
       </Provider>, {
         createNodeMock: () => {
           return {};

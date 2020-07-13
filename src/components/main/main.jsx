@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
 import FilmDetails from '../film-details/film-details.jsx';
 import GanresList from '../ganres-list/ganres-list.jsx';
+import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+
 class Main extends PureComponent {
   constructor(props) {
     super(props);
@@ -42,7 +44,7 @@ class Main extends PureComponent {
           < GanresList />
           <FilmList isDetails={isDetails} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={onCardClickHendler} />
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            <ShowMoreButton />
           </div>
         </section>
         <footer className="page-footer">
@@ -61,6 +63,7 @@ class Main extends PureComponent {
     </div>;
   }
 }
+
 Main.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseData: PropTypes.number.isRequired,
@@ -68,6 +71,9 @@ Main.propTypes = {
   onButtonHendler: PropTypes.func,
   onCardClickHendler: PropTypes.func,
   activeFilmId: PropTypes.number,
-  currentFilm: PropTypes.object
+  currentFilm: PropTypes.object,
+  filmList: PropTypes.array,
+  filteredList: PropTypes.array,
 };
+export {Main};
 export default Main;
