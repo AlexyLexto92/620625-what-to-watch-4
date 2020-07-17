@@ -40,6 +40,5 @@ const mapDispatchToProps = (dispatch) => ({
   reloadFilmsCount: () => dispatch(ActionCreator.reloadFilmsCount()),
 });
 
-
 export {GanresList};
 export default connect(mapStateToProps, mapDispatchToProps)(GanresList);
