@@ -32,7 +32,7 @@ class App extends PureComponent {
     const { genre, releaseData, films, onButtonHendler } = this.props;
     const currentFilm = films.find((elem) => elem.id === activeFilmId);
     if (isShowFullPlayer) {
-      return <FullPlayer currentFilm={currentFilm}/>
+      return <FullPlayer currentFilm={films[0]}/>
     } return (
       <BrowserRouter>
         <Switch>
@@ -46,7 +46,8 @@ class App extends PureComponent {
               onCardClickHendler={this.onCardClickHendler}
               isShowFullPlayer={isShowFullPlayer}
               handlerButtonClick={this.handlerButtonClick}
-              handlerButtonCloseClick={this.handlerButtonCloseClick} />
+              handlerButtonCloseClick={this.handlerButtonCloseClick}
+              prewiewFilm = {films[0]} />
           </Route>
         </Switch>
       </BrowserRouter>
