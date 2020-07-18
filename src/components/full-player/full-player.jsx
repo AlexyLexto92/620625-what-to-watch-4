@@ -1,5 +1,5 @@
-import React, { PureComponent, createRef } from 'react';
-
+import React, {PureComponent, createRef} from 'react';
+import PropTypes from 'prop-types';
 class FullPlayer extends PureComponent {
   constructor(props) {
     super(props);
@@ -8,7 +8,7 @@ class FullPlayer extends PureComponent {
       isPlaying: true,
       duration: 0,
       progress: 0,
-    }
+    };
     this.onHendlerPlay = this.onHendlerPlay.bind(this);
     this.onHendlerPause = this.onHendlerPause.bind(this);
     this.handlerFullScreenClick = this.handlerFullScreenClick.bind(this);
@@ -18,12 +18,12 @@ class FullPlayer extends PureComponent {
   onHendlerPause() {
     this.setState({
       isPlaying: false,
-    })
+    });
   }
   onHendlerPlay() {
     this.setState({
       isPlaying: true,
-    })
+    });
   }
   handlerFullScreenClick() {
     const video = this._videoRef.current;
@@ -40,11 +40,10 @@ class FullPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const { currentFilm } = this.props;
+    const {currentFilm} = this.props;
     const video = this._videoRef.current;
     video.src = currentFilm.previewVideoLink;
     video.muted = true;
-    video.currentTime;
 
     video.onplay = () => {
       this.setState({
@@ -63,8 +62,7 @@ class FullPlayer extends PureComponent {
   }
 
   componentDidUpdate() {
-    const { currentFilm } = this.props;
-    const { isPlaying } = this.state;
+    const {isPlaying} = this.state;
     const video = this._videoRef.current;
     if (isPlaying) {
       video.play();
@@ -82,8 +80,8 @@ class FullPlayer extends PureComponent {
   }
 
   render() {
-    const { handlerButtonCloseClick } = this.props;
-    const { isPlaying, duration, progress } = this.state;
+    const {handlerButtonCloseClick} = this.props;
+    const {isPlaying, duration, progress} = this.state;
     return <div className="player">
       <video ref={this._videoRef}
         width="100%"
@@ -95,7 +93,7 @@ class FullPlayer extends PureComponent {
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value={progress} max={100} />
-            <div className="player__toggler" style={{ left: `${progress}%` }}>Toggler</div>
+            <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">{duration}</div>
         </div>
@@ -106,11 +104,11 @@ class FullPlayer extends PureComponent {
             </svg>
             <span>Pause</span>
           </button> : <button onClick={this.onHendlerPlay} type="button" className="player__play">
-              <svg viewBox="0 0 19 19" width={19} height={19}>
-                <use xlinkHref="#play-s" />
-              </svg>
-              <span>Play</span>
-            </button>}
+            <svg viewBox="0 0 19 19" width={19} height={19}>
+              <use xlinkHref="#play-s" />
+            </svg>
+            <span>Play</span>
+          </button>}
           <div className="player__name">Transpotting</div>
           <button onClick={this.handlerFullScreenClick} type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width={27} height={27}>
@@ -124,4 +122,8 @@ class FullPlayer extends PureComponent {
   }
 }
 
+FullPlayer.propTypes = {
+  handlerButtonCloseClick: PropTypes.func,
+  currentFilm: PropTypes.object,
+};
 export default FullPlayer;

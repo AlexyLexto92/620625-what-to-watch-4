@@ -1,10 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
 import FilmDetails from '../film-details/film-details.jsx';
 import GanresList from '../ganres-list/ganres-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
-import FullPlayer from '../full-player/full-player.jsx';
 
 class Main extends PureComponent {
   constructor(props) {
@@ -12,7 +11,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const { onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick } = this.props;
+    const {onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick} = this.props;
     const isDetails = false;
     if (activeFilmId > 0) {
       return < FilmDetails
@@ -112,6 +111,9 @@ Main.propTypes = {
   currentFilm: PropTypes.object,
   filmList: PropTypes.array,
   filteredList: PropTypes.array,
+  isShowFullPlayer: PropTypes.bool,
+  handlerButtonClick: PropTypes.func,
+  handlerButtonCloseClick: PropTypes.func,
 };
-export { Main };
+export {Main};
 export default Main;

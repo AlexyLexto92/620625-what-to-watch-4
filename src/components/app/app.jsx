@@ -1,7 +1,7 @@
-import React, { PureComponent } from "react";
+import React, {PureComponent} from "react";
 import Main from "../main/main.jsx";
 import PropTypes from 'prop-types';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import FullPlayer from "../full-player/full-player.jsx";
 class App extends PureComponent {
   constructor(props) {
@@ -28,11 +28,11 @@ class App extends PureComponent {
 
   render() {
     const activeFilmId = this.state.activeFilmId;
-    const { isShowFullPlayer } = this.state;
-    const { genre, releaseData, films, onButtonHendler } = this.props;
+    const {isShowFullPlayer} = this.state;
+    const {genre, releaseData, films, onButtonHendler} = this.props;
     const currentFilm = films.find((elem) => elem.id === activeFilmId);
     if (isShowFullPlayer) {
-      return <FullPlayer currentFilm={films[0]} handlerButtonCloseClick={this.handlerButtonCloseClick}/>
+      return <FullPlayer currentFilm={films[0]} handlerButtonCloseClick={this.handlerButtonCloseClick}/>;
     } return (
       <BrowserRouter>
         <Switch>
@@ -56,7 +56,7 @@ class App extends PureComponent {
 
   onCardClickHendler(evt) {
     const id = evt.currentTarget.id;
-    this.setState({ activeFilmId: Number(id) });
+    this.setState({activeFilmId: Number(id)});
   }
 
 }
