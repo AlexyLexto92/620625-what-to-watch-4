@@ -44,7 +44,6 @@ class FullPlayer extends PureComponent {
     const video = this._videoRef.current;
     video.src = currentFilm.previewVideoLink;
     video.muted = true;
-    video.autoplay = true;
     video.currentTime;
 
     video.onplay = () => {
@@ -67,11 +66,8 @@ class FullPlayer extends PureComponent {
     const { currentFilm } = this.props;
     const { isPlaying } = this.state;
     const video = this._videoRef.current;
-    video.src = currentFilm.previewVideoLink;
     if (isPlaying) {
       video.play();
-    } else {
-      video.pause();
     }
   }
 
