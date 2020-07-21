@@ -2,13 +2,18 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '../tabs/tabs.jsx';
 import FilmList from '../film-list/film-list.jsx';
+import FullPlayer from '../full-player/full-player.jsx';
 class FilmDetails extends PureComponent {
   constructor(props) {
     super(props);
+
   }
   render() {
-    const {films, onButtonHendler, onCardClickHendler, currentFilm} = this.props;
+    const {films, onButtonHendler, onCardClickHendler, currentFilm, handlerButtonClick, isShowFullPlayer, handlerButtonCloseClick} = this.props;
     const isDetails = true;
+    if (isShowFullPlayer) {
+      return <FullPlayer currentFilm={currentFilm} handlerButtonCloseClick={handlerButtonCloseClick}/>;
+    }
     return <React.Fragment>
       <section className="movie-card movie-card--full" style={{background: currentFilm.backgroundColor}}>
         <div className="movie-card__hero">
@@ -38,7 +43,7 @@ class FilmDetails extends PureComponent {
                 <span className="movie-card__year">{currentFilm.released}</span>
               </p>
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button onClick={handlerButtonClick} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
                   </svg>
@@ -69,7 +74,7 @@ class FilmDetails extends PureComponent {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList isDetails = {isDetails} currentFilm = {currentFilm} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={onCardClickHendler}/>
+          <FilmList isDetails={isDetails} currentFilm={currentFilm} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={onCardClickHendler} />
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -95,4 +100,7 @@ FilmDetails.propTypes = {
   activeFilmId: PropTypes.number,
   onButtonHendler: PropTypes.func,
   onCardClickHendler: PropTypes.func,
+  isShowFullPlayer: PropTypes.bool,
+  handlerButtonClick: PropTypes.func,
+  handlerButtonCloseClick: PropTypes.func,
 };

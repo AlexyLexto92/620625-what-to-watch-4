@@ -9,11 +9,20 @@ class Main extends PureComponent {
   constructor(props) {
     super(props);
   }
+
   render() {
-    const {onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm} = this.props;
+    const {onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick} = this.props;
     const isDetails = false;
     if (activeFilmId > 0) {
-      return < FilmDetails isDetails={isDetails} currentFilm={currentFilm} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={onCardClickHendler} />;
+      return < FilmDetails
+        isDetails={isDetails}
+        currentFilm={currentFilm}
+        films={films}
+        onButtonHendler={onButtonHendler}
+        onCardClickHendler={onCardClickHendler}
+        handlerButtonClick={handlerButtonClick}
+        isShowFullPlayer={isShowFullPlayer}
+        handlerButtonCloseClick={handlerButtonCloseClick} />;
     }
     return <div>
       <section className="movie-card">
@@ -35,6 +44,34 @@ class Main extends PureComponent {
             </div>
           </div>
         </header>
+        <div className="movie-card__wrap">
+          <div className="movie-card__info">
+            <div className="movie-card__poster">
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width={218} height={327} />
+            </div>
+            <div className="movie-card__desc">
+              <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+              <p className="movie-card__meta">
+                <span className="movie-card__genre">Drama</span>
+                <span className="movie-card__year">2014</span>
+              </p>
+              <div className="movie-card__buttons" onClick={handlerButtonClick}>
+                <button className="btn btn--play movie-card__button" type="button">
+                  <svg viewBox="0 0 19 19" width={19} height={19}>
+                    <use xlinkHref="#play-s" />
+                  </svg>
+                  <span>Play</span>
+                </button>
+                <button className="btn btn--list movie-card__button" type="button">
+                  <svg viewBox="0 0 19 20" width={19} height={20}>
+                    <use xlinkHref="#add" />
+                  </svg>
+                  <span>My list</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
       </section>
@@ -74,6 +111,9 @@ Main.propTypes = {
   currentFilm: PropTypes.object,
   filmList: PropTypes.array,
   filteredList: PropTypes.array,
+  isShowFullPlayer: PropTypes.bool,
+  handlerButtonClick: PropTypes.func,
+  handlerButtonCloseClick: PropTypes.func,
 };
 export {Main};
 export default Main;
