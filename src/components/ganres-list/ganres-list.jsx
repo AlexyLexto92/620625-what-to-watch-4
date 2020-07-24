@@ -1,19 +1,19 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
+import {ActionCreator} from '../../reducer/actions/actions.js';
 import PropTypes from 'prop-types';
+import {getGenreActive, getGenres, getFilteredList} from '../../reducer/actions/selectors.js';
 class GanresList extends PureComponent {
   constructor(props) {
     super(props);
 
   }
   render() {
-    const {filterFilms, changeFilter, genreActive, genres, reloadFilmsCount} = this.props;
+    const { changeFilter, genreActive, genres, reloadFilmsCount} = this.props;
     return <ul className="catalog__genres-list">
       {
         genres.map((genre) => <li key={genre} className={genre === genreActive ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}><a href="#" onClick={() => {
           changeFilter(genre);
-          filterFilms(genre);
           reloadFilmsCount();
         }} className="catalog__genres-link">{genre}</a></li>)}
     </ul>;
@@ -29,14 +29,13 @@ GanresList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  genreActive: state.genreActive,
-  filteredList: state.filteredList,
-  genres: state.genres,
+  genreActive: getGenreActive(state),
+  filteredList: getFilteredList(state),
+  genres: getGenres(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeFilter: (genre) => dispatch(ActionCreator.changeFilter(genre)),
-  filterFilms: (genre) => dispatch(ActionCreator.filterFilms(genre)),
   reloadFilmsCount: () => dispatch(ActionCreator.reloadFilmsCount()),
 });
 

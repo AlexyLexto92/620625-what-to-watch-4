@@ -2,6 +2,8 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Film from '../film/film.jsx';
 import {connect} from 'react-redux';
+import {getFilms} from '../../reducer/data/selectors.js';
+import {getGenreActive, getFilmsCount, getFilteredList} from '../../reducer/actions/selectors.js';
 
 class FilmList extends PureComponent {
   constructor(props) {
@@ -53,10 +55,10 @@ FilmList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filteredList: state.filteredList,
-  filmList: state.filmList,
-  genreActive: state.genreActive,
-  filmsCount: state.filmsCount,
+  filteredList: getFilteredList(state),
+  filmList: getFilms(state),
+  genreActive: getGenreActive(state),
+  filmsCount: getFilmsCount(state),
 });
 
 export {FilmList};
