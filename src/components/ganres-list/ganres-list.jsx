@@ -9,7 +9,7 @@ class GanresList extends PureComponent {
 
   }
   render() {
-    const { changeFilter, genreActive, genres, reloadFilmsCount} = this.props;
+    const {changeFilter, genreActive, genres, reloadFilmsCount} = this.props;
     return <ul className="catalog__genres-list">
       {
         genres.map((genre) => <li key={genre} className={genre === genreActive ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}><a href="#" onClick={() => {
