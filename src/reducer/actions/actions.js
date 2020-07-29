@@ -6,11 +6,13 @@ const initialState = {
   genreActive: `All genres`,
   filmsCount: 8,
   addFilmsCount: 8,
+  activeFilm: 0,
 };
 const ActionType = {
   CHANGE_FILTER: `CHANGE_FILTER`,
   ADD_FILMS: `ADD_FILMS`,
   RELOAD_FILM_COUNT: `RELOAD_FILM_COUNT`,
+  SELECT_ACTIVE_FILM: `SELECT_ACTIVE_FILM`,
 };
 
 const ActionCreator = {
@@ -26,6 +28,10 @@ const ActionCreator = {
     type: ActionType.RELOAD_FILM_COUNT,
     payload: 8,
   }),
+  selectActiveFilm: (filmActive) => ({
+    type: ActionType.SELECT_ACTIVE_FILM,
+    payload: filmActive,
+  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +47,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.RELOAD_FILM_COUNT: {
       return extend(state, {
         filmsCount: action.payload
+      });
+    }
+    case ActionType.SELECT_ACTIVE_FILM: {
+      return extend(state, {
+        activeFilm: action.payload,
       });
     }
   }

@@ -22,6 +22,9 @@ export const getFilms = (state) => {
   return state[nameSpace.DATA].filmList;
 };
 
+export const getActiveFilm = (state)=>{
+  return state[nameSpace.ACTIONS].activeFilm;
+};
 
 export const getFilteredList = createSelector(
     getFilms, getGenreActive, (films, genre) => {

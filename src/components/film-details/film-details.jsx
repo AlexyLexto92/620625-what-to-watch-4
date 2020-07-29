@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Tabs from '../tabs/tabs.jsx';
 import FilmList from '../film-list/film-list.jsx';
 import FullPlayer from '../full-player/full-player.jsx';
+import AddRewiew from '../add-rewiew/add-rewiew.jsx';
 class FilmDetails extends PureComponent {
   constructor(props) {
     super(props);
@@ -89,6 +90,7 @@ class FilmDetails extends PureComponent {
           </div>
         </footer>
       </div>
+      <AddRewiew />
     </React.Fragment>;
   }
 }

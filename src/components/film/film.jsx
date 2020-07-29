@@ -1,6 +1,10 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Player from '../player/player.jsx';
+import {connect} from 'react-redux';
+import {getActiveFilm} from '../../reducer/actions/selectors.js';
+import {ActionCreator} from '../../reducer/actions/actions.js';
+
 class Film extends PureComponent {
   constructor(props) {
     super(props);
@@ -35,14 +39,23 @@ class Film extends PureComponent {
 
   }
   render() {
-    const {film, onButtonHendler, onCardClickHendler} = this.props;
+    const {film, onCardClickHendler, selectActiveFilm} = this.props;
     const {isPlaying} = this.state;
-    return <article className="small-movie-card catalog__movies-card" id={film.id} onMouseEnter={this.handlerMouseEnter} onClick={onCardClickHendler} onMouseLeave={this.handlerMouseLeave}>
+    return <article className="small-movie-card catalog__movies-card" id={film.id} onMouseEnter={this.handlerMouseEnter} onMouseLeave={this.handlerMouseLeave}
+      onClick={(evt) => {
+        const id = evt.currentTarget.id;
+        selectActiveFilm(id);
+        onCardClickHendler(evt);
+      }}
+    >
       <div className="small-movie-card__image">
         < Player previewVideoLink={film.previewVideoLink} posterImage={film.previewImage} isPlaying={isPlaying} />
       </div>
       <h3 className="small-movie-card__title">
-        <a onClick={onButtonHendler} className="small-movie-card__link" href="movie-page.html">{film.name}</a>
+        <a onClick={(evt) => {
+          const id = evt.currentTarget.id;
+          selectActiveFilm(id);
+        }} className="small-movie-card__link" href="movie-page.html">{film.name}</a>
       </h3>
     </article>;
   }
@@ -57,9 +70,17 @@ Film.propTypes = {
     previewVideoLink: PropTypes.string,
   }),
   onButtonHendler: PropTypes.func,
+  selectActiveFilm: PropTypes.func,
   onHoverHeandler: PropTypes.func,
   onCardClickHendler: PropTypes.func,
   isPlaying: PropTypes.bool
 };
-export default Film;
+const mapStateToProps = (state) => ({
+  activeFilm: getActiveFilm(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  selectActiveFilm: (id) => dispatch(ActionCreator.selectActiveFilm(id))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Film);
 

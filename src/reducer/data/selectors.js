@@ -13,3 +13,6 @@ export const getFilteredList = createSelector(
       return resultOne.filter((it) => it.genre === resultTwo);
     }
 );
+export const getCommentUploadStatus = (state) => {
+  return state[nameSpace.ACTIONS].commentUploadStatus;
+};
