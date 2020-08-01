@@ -8,6 +8,10 @@ import {connect} from "react-redux";
 import {Operation as UserOperation} from '../../reducer/user/user.js';
 import FullPlayer from "../full-player/full-player.jsx";
 import SingIn from "../sing-in/sing-in.jsx";
+import {Switch, Route, Router} from 'react-router-dom';
+import history from "../../history.js";
+
+
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -31,7 +35,7 @@ class App extends PureComponent {
     });
   }
 
-  render() {
+  _renderScreen() {
     const activeFilmId = this.state.activeFilmId;
     const {isShowFullPlayer} = this.state;
     const {genre, releaseData, filmList, onButtonHendler, login, authorizationStatus} = this.props;
@@ -54,6 +58,42 @@ class App extends PureComponent {
       return <SingIn onSubmit={login} />;
     }
     return null;
+
+  }
+  render() {
+    const {isShowFullPlayer} = this.state;
+    const {genre, releaseData, filmList, onButtonHendler, login} = this.props;
+    const activeFilmId = this.state.activeFilmId;
+    const currentFilm = filmList.find((elem) => elem.id === activeFilmId);
+
+    return (
+      <Router history={history}>
+        <Switch>
+          <Route exact path='/'>
+            {this._renderScreen()}
+          </Route>
+          <Route exact path={`/main`}>
+            <Main genre={genre}
+              releaseData={releaseData}
+              currentFilm={currentFilm}
+              activeFilmId={activeFilmId}
+              films={filmList}
+              onButtonHendler={onButtonHendler}
+              onCardClickHendler={this.onCardClickHendler}
+              isShowFullPlayer={isShowFullPlayer}
+              handlerButtonClick={this.handlerButtonClick}
+              handlerButtonCloseClick={this.handlerButtonCloseClick}
+              prewiewFilm={filmList[0]} />
+          </Route>
+          <Route exact path='/singIn'>
+            <SingIn onSubmit={login} />
+          </Route>
+          <Route exact path='/player' >
+            <FullPlayer currentFilm={filmList[0]} handlerButtonCloseClick={this.handlerButtonCloseClick} />
+          </Route >
+        </Switch >
+      </Router >
+    );
   }
 
   onCardClickHendler(evt) {
@@ -74,7 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 App.propTypes = {
-  login: PropTypes.string,
+
   authorizationStatus: PropTypes.string,
   genre: PropTypes.string.isRequired,
   releaseData: PropTypes.number.isRequired,
