@@ -10,7 +10,7 @@ import { RouteConst } from '../../utils.js';
 import { connect } from 'react-redux';
 import { getActiveFilm } from '../../reducer/actions/selectors.js';
 import { getAuthorizationStatus } from '../../reducer/user/selectors.js';
-import ProfileIcon from '../../profile-icon/profile-icon.jsx';
+import ProfileIcon from '../profile-icon/profile-icon.jsx';
 class Main extends PureComponent {
   constructor(props) {
     super(props);

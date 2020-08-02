@@ -11,6 +11,8 @@ import SingIn from "../sing-in/sing-in.jsx";
 import { Switch, Route, Router } from 'react-router-dom';
 import history from "../../history.js";
 import { RouteConst } from '../../utils.js';
+import PrivateRoute from "../privat-router/privat-router.jsx";
+import MyList from "../my-list/my-list.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -54,8 +56,9 @@ class App extends PureComponent {
 
   render() {
 
-    const { genre, releaseData, filmList, onButtonHendler, login } = this.props;
+    const { genre, releaseData, filmList, onButtonHendler, login, authorizationStatus } = this.props;
     const activeFilmId = this.state.activeFilmId;
+    debugger
     const currentFilm = filmList.find((elem) => elem.id === activeFilmId);
     return (
       <Router history={history}>
@@ -78,6 +81,12 @@ class App extends PureComponent {
           <Route exact path={RouteConst.SING_IN}>
             <SingIn onSubmit={login} />
           </Route>
+          <PrivateRoute exact path={RouteConst.MY_LIST}
+            render={(props) => {
+              return <MyList historyProps={props} />;
+            }}
+            authorizationStatus={authorizationStatus}>
+          </PrivateRoute>
           <Route exact path={RouteConst.PLAYER} >
             <FullPlayer currentFilm={filmList[0]} handlerButtonCloseClick={this.handlerButtonCloseClick} />
           </Route >
