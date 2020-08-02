@@ -4,6 +4,8 @@ import Player from '../player/player.jsx';
 import {connect} from 'react-redux';
 import {getActiveFilm} from '../../reducer/actions/selectors.js';
 import {ActionCreator} from '../../reducer/actions/actions.js';
+import {Link} from 'react-router-dom';
+import {RouteConst} from '../../utils.js';
 
 class Film extends PureComponent {
   constructor(props) {
@@ -52,10 +54,14 @@ class Film extends PureComponent {
         < Player previewVideoLink={film.previewVideoLink} posterImage={film.previewImage} isPlaying={isPlaying} />
       </div>
       <h3 className="small-movie-card__title">
-        <a onClick={(evt) => {
-          const id = evt.currentTarget.id;
-          selectActiveFilm(id);
-        }} className="small-movie-card__link" href="movie-page.html">{film.name}</a>
+        <Link
+          onClick={(evt) => {
+            const id = evt.currentTarget.id;
+            selectActiveFilm(id);
+          }} className="small-movie-card__link"
+          to={`${RouteConst.MAIN}${RouteConst.FILM_DETAILS}/:${film.id}?`}>
+          {film.name}
+        </Link>
       </h3>
     </article>;
   }

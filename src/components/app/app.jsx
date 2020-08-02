@@ -10,7 +10,7 @@ import FullPlayer from "../full-player/full-player.jsx";
 import SingIn from "../sing-in/sing-in.jsx";
 import {Switch, Route, Router} from 'react-router-dom';
 import history from "../../history.js";
-
+import {RouteConst} from '../../utils.js';
 
 class App extends PureComponent {
   constructor(props) {
@@ -69,10 +69,10 @@ class App extends PureComponent {
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path={RouteConst.ROOT}>
             {this._renderScreen()}
           </Route>
-          <Route exact path={`/main`}>
+          <Route exact path={RouteConst.MAIN}>
             <Main genre={genre}
               releaseData={releaseData}
               currentFilm={currentFilm}
@@ -85,10 +85,10 @@ class App extends PureComponent {
               handlerButtonCloseClick={this.handlerButtonCloseClick}
               prewiewFilm={filmList[0]} />
           </Route>
-          <Route exact path='/singIn'>
+          <Route exact path={RouteConst.SING_IN}>
             <SingIn onSubmit={login} />
           </Route>
-          <Route exact path='/player' >
+          <Route exact path={RouteConst.PLAYER} >
             <FullPlayer currentFilm={filmList[0]} handlerButtonCloseClick={this.handlerButtonCloseClick} />
           </Route >
         </Switch >
@@ -114,7 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 App.propTypes = {
-
+  login: PropTypes.func,
   authorizationStatus: PropTypes.string,
   genre: PropTypes.string.isRequired,
   releaseData: PropTypes.number.isRequired,

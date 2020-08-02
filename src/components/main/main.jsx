@@ -1,17 +1,19 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import FilmList from '../film-list/film-list.jsx';
 import FilmDetails from '../film-details/film-details.jsx';
 import GanresList from '../ganres-list/ganres-list.jsx';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
-
+import { Switch, Router, Route, Link } from 'react-router-dom';
+import history from '../../history.js';
+import { RouteConst } from '../../utils.js';
+import film from '../film/film.jsx';
 class Main extends PureComponent {
   constructor(props) {
     super(props);
   }
-
-  render() {
-    const {onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick} = this.props;
+  _getScreen() {
+    const { onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick } = this.props;
     const isDetails = false;
     if (activeFilmId > 0) {
       return < FilmDetails
@@ -40,7 +42,9 @@ class Main extends PureComponent {
           </div>
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
+              <Link to={RouteConst.SING_IN}>
+                <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
+              </Link>
             </div>
           </div>
         </header>
@@ -99,6 +103,30 @@ class Main extends PureComponent {
       </div>
     </div>;
   }
+  render() {
+    const { onCardClickHendler, films, onButtonHendler, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick } = this.props;
+    const isDetails = false;
+    return (
+      <Router history={history}>
+        <Switch>
+          <Route exact path={RouteConst.MAIN}>
+            {this._getScreen()}
+          </Route>
+          <Route exact path={`${RouteConst.MAIN}${RouteConst.FILM_DETAILS}/:${film.id}?`}>
+            < FilmDetails
+              isDetails={isDetails}
+              currentFilm={currentFilm}
+              films={films}
+              onButtonHendler={onButtonHendler}
+              onCardClickHendler={onCardClickHendler}
+              handlerButtonClick={handlerButtonClick}
+              isShowFullPlayer={isShowFullPlayer}
+              handlerButtonCloseClick={handlerButtonCloseClick} />;
+          </Route>
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 Main.propTypes = {
@@ -115,5 +143,5 @@ Main.propTypes = {
   handlerButtonClick: PropTypes.func,
   handlerButtonCloseClick: PropTypes.func,
 };
-export {Main};
+export { Main };
 export default Main;
