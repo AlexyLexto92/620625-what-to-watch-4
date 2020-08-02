@@ -7,24 +7,19 @@ import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 import { Switch, Router, Route, Link } from 'react-router-dom';
 import history from '../../history.js';
 import { RouteConst } from '../../utils.js';
-import film from '../film/film.jsx';
+import { connect } from 'react-redux';
+import { getActiveFilm } from '../../reducer/actions/selectors.js';
+import { getAuthorizationStatus } from '../../reducer/user/selectors.js';
+import ProfileIcon from '../../profile-icon/profile-icon.jsx';
 class Main extends PureComponent {
   constructor(props) {
     super(props);
   }
   _getScreen() {
-    const { onCardClickHendler, films, onButtonHendler, activeFilmId, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick } = this.props;
+    const { onCardClickHendler, films, onButtonHendler, activeFilmId, handlerButtonClick, activeFilm } = this.props;
     const isDetails = false;
     if (activeFilmId > 0) {
-      return < FilmDetails
-        isDetails={isDetails}
-        currentFilm={currentFilm}
-        films={films}
-        onButtonHendler={onButtonHendler}
-        onCardClickHendler={onCardClickHendler}
-        handlerButtonClick={handlerButtonClick}
-        isShowFullPlayer={isShowFullPlayer}
-        handlerButtonCloseClick={handlerButtonCloseClick} />;
+      return history.push(`${RouteConst.MAIN}${RouteConst.FILM_DETAILS}/:${activeFilm}`);
     }
     return <div>
       <section className="movie-card">
@@ -42,9 +37,8 @@ class Main extends PureComponent {
           </div>
           <div className="user-block">
             <div className="user-block__avatar">
-              <Link to={RouteConst.SING_IN}>
-                <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-              </Link>
+              <ProfileIcon />
+
             </div>
           </div>
         </header>
@@ -101,10 +95,10 @@ class Main extends PureComponent {
           </div>
         </footer>
       </div>
-    </div>;
+    </div >;
   }
   render() {
-    const { onCardClickHendler, films, onButtonHendler, currentFilm, isShowFullPlayer, handlerButtonClick, handlerButtonCloseClick } = this.props;
+    const { onCardClickHendler, films, onButtonHendler, currentFilm, isShowFullPlayer, handlerButtonClick, activeFilm, handlerButtonCloseClick } = this.props;
     const isDetails = false;
     return (
       <Router history={history}>
@@ -112,7 +106,7 @@ class Main extends PureComponent {
           <Route exact path={RouteConst.MAIN}>
             {this._getScreen()}
           </Route>
-          <Route exact path={`${RouteConst.MAIN}${RouteConst.FILM_DETAILS}/:${film.id}?`}>
+          <Route exact path={`${RouteConst.MAIN}${RouteConst.FILM_DETAILS}/:${activeFilm.id}?`}>
             < FilmDetails
               isDetails={isDetails}
               currentFilm={currentFilm}
@@ -130,6 +124,7 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
+  activeFilm: PropTypes.number,
   genre: PropTypes.string.isRequired,
   releaseData: PropTypes.number.isRequired,
   films: PropTypes.array,
@@ -143,5 +138,12 @@ Main.propTypes = {
   handlerButtonClick: PropTypes.func,
   handlerButtonCloseClick: PropTypes.func,
 };
+const mapStateToProps = (state) => ({
+  activeFilm: getActiveFilm(state),
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
 export { Main };
-export default Main;
+export default connect(mapStateToProps)(Main);
+
+

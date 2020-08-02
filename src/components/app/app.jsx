@@ -1,16 +1,16 @@
-import React, {PureComponent} from "react";
+import React, { PureComponent } from "react";
 import Main from "../main/main.jsx";
 import PropTypes from 'prop-types';
-import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {getFilms} from '../../reducer/data/selectors.js';
-import {connect} from "react-redux";
-import {Operation as UserOperation} from '../../reducer/user/user.js';
+import { AuthorizationStatus } from "../../reducer/user/user.js";
+import { getAuthorizationStatus } from "../../reducer/user/selectors.js";
+import { getFilms } from '../../reducer/data/selectors.js';
+import { connect } from "react-redux";
+import { Operation as UserOperation } from '../../reducer/user/user.js';
 import FullPlayer from "../full-player/full-player.jsx";
 import SingIn from "../sing-in/sing-in.jsx";
-import {Switch, Route, Router} from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 import history from "../../history.js";
-import {RouteConst} from '../../utils.js';
+import { RouteConst } from '../../utils.js';
 
 class App extends PureComponent {
   constructor(props) {
@@ -36,27 +36,31 @@ class App extends PureComponent {
   }
 
   _renderScreen() {
-    const {isShowFullPlayer} = this.state;
-    const {authorizationStatus} = this.props;
-    if (isShowFullPlayer) {
-      return history.push(RouteConst.FullPlayer);
-    } if (authorizationStatus === AuthorizationStatus.AUTH) {
-      return history.push(RouteConst.MAIN);
-    } else if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      return history.push(RouteConst.SING_IN);
-    } return null;
-  }
-  render() {
-    const {isShowFullPlayer} = this.state;
-    const {genre, releaseData, filmList, onButtonHendler, login} = this.props;
+    const { authorizationStatus } = this.props;
+    const { genre, releaseData, filmList, onButtonHendler } = this.props;
     const activeFilmId = this.state.activeFilmId;
     const currentFilm = filmList.find((elem) => elem.id === activeFilmId);
+    return (<Main genre={genre}
+      releaseData={releaseData}
+      currentFilm={currentFilm}
+      activeFilmId={activeFilmId}
+      films={filmList}
+      onButtonHendler={onButtonHendler}
+      onCardClickHendler={this.onCardClickHendler}
+      handlerButtonClick={this.handlerButtonClick}
+      handlerButtonCloseClick={this.handlerButtonCloseClick}
+      prewiewFilm={filmList[0]} />);
+  }
 
-    debugger
+  render() {
+
+    const { genre, releaseData, filmList, onButtonHendler, login } = this.props;
+    const activeFilmId = this.state.activeFilmId;
+    const currentFilm = filmList.find((elem) => elem.id === activeFilmId);
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path={RouteConst.ROOT}>
+          <Route exact path={RouteConst.MAIN}>
             {this._renderScreen()}
           </Route>
           <Route exact path={RouteConst.MAIN}>
@@ -67,7 +71,6 @@ class App extends PureComponent {
               films={filmList}
               onButtonHendler={onButtonHendler}
               onCardClickHendler={this.onCardClickHendler}
-              isShowFullPlayer={isShowFullPlayer}
               handlerButtonClick={this.handlerButtonClick}
               handlerButtonCloseClick={this.handlerButtonCloseClick}
               prewiewFilm={filmList[0]} />
@@ -85,7 +88,7 @@ class App extends PureComponent {
 
   onCardClickHendler(evt) {
     const id = evt.currentTarget.id;
-    this.setState({activeFilmId: Number(id)});
+    this.setState({ activeFilmId: Number(id) });
   }
 
 }
@@ -109,6 +112,6 @@ App.propTypes = {
   onButtonHendler: PropTypes.func,
   filmList: PropTypes.array,
 };
-export {App};
+export { App };
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
