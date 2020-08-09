@@ -65,7 +65,6 @@ class App extends PureComponent {
         </Route>
         <Route path={`${RouteConst.FILM_DETAILS}'/:id'`} >
           < FilmDetails
-            currentFilm={currentFilm}
             films={filmList}
             onButtonHendler={onButtonHendler}
             onCardClickHendler={this.onCardClickHendler} />

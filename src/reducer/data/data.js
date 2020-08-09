@@ -37,7 +37,7 @@ const Operation = {
   loadActiveFilm: (id) => (dispatch, getState, api) => {
     return api.get(`/films/:${id}`)
       .then((response) => {
-        dispatch(ActionCreator.loadFilms(response.data));
+        dispatch(ActionCreator.loadActiveFilm(response.data));
       });
   },
   loadFilms: () => (dispatch, getState, api) => {
