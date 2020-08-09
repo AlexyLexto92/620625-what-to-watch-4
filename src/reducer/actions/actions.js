@@ -6,7 +6,8 @@ const initialState = {
   genreActive: `All genres`,
   filmsCount: 8,
   addFilmsCount: 8,
-  activeFilm: 0,
+  activeFilmId: 0,
+  activeFilm: {},
 };
 const ActionType = {
   CHANGE_FILTER: `CHANGE_FILTER`,
@@ -28,7 +29,7 @@ const ActionCreator = {
     type: ActionType.RELOAD_FILM_COUNT,
     payload: 8,
   }),
-  selectActiveFilm: (filmActive) => ({
+  getActiveFilmId: (filmActive) => ({
     type: ActionType.SELECT_ACTIVE_FILM,
     payload: filmActive,
   })
@@ -51,7 +52,7 @@ const reducer = (state = initialState, action) => {
     }
     case ActionType.SELECT_ACTIVE_FILM: {
       return extend(state, {
-        activeFilm: action.payload,
+        activeFilmId: action.payload,
       });
     }
   }

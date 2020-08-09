@@ -22,8 +22,8 @@ export const getFilms = (state) => {
   return state[nameSpace.DATA].filmList;
 };
 
-export const getActiveFilm = (state)=>{
-  return state[nameSpace.ACTIONS].activeFilm;
+export const getActiveIdFilm = (state) => {
+  return state[nameSpace.ACTIONS].activeFilmId;
 };
 
 export const getFilteredList = createSelector(
@@ -32,3 +32,10 @@ export const getFilteredList = createSelector(
       return filteredFilms;
     }
 );
+
+export const getActiveFilm = createSelector(getFilms, getActiveIdFilm, (films, id) => {
+  let activeFilm = films.find((it) => it.id === id);
+  debugger
+  return activeFilm;
+
+});

@@ -3,9 +3,6 @@ import nameSpace from '../name-space.js';
 export const getFilms = (state) => {
   return state[nameSpace.DATA].filmList;
 };
-export const getActiveFilm = (state) => {
-  return state[nameSpace.DATA].activeFilm;
-};
 
 export const getFilter = (state) => {
   return state[nameSpace.ACTIONS].genreActive;

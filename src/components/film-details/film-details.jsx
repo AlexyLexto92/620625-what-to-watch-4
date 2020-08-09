@@ -5,8 +5,7 @@ import FilmList from '../film-list/film-list.jsx';
 import AddRewiew from '../add-rewiew/add-rewiew.jsx';
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getActiveFilm} from '../../reducer/data/selectors.js';
-import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {getActiveFilm} from '../../reducer/actions/selectors.js';
 class FilmDetails extends PureComponent {
   constructor(props) {
     super(props);
@@ -14,10 +13,8 @@ class FilmDetails extends PureComponent {
   }
   render() {
     debugger;
-    const {loadActiveFilm, activeFilm} = this.props;
-    const {id} = useParams();
-    loadActiveFilm(id);
-    const {films, onButtonHendler, onCardClickHendler, handlerButtonClick} = this.props;
+    const {activeFilm, films} = this.props;
+    const {onButtonHendler, onCardClickHendler, handlerButtonClick} = this.props;
     const isDetails = true;
     return <React.Fragment>
       <section className="movie-card movie-card--full" style={{background: activeFilm.background_color}}>
@@ -99,16 +96,11 @@ class FilmDetails extends PureComponent {
   }
 }
 const mapStateToProps = (state) => ({
-  activeFilm: getActiveFilm(state)
+  activeFilm: getActiveFilm(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadActiveFilm: (id) => {
-    dispatch(DataOperation.loadActiveFilm(id));
-  },
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilmDetails);
+export default connect(mapStateToProps)(FilmDetails);
 
 FilmDetails.propTypes = {
   activeFilm: PropTypes.object,

@@ -3,7 +3,6 @@ import extend from '../../utils.js';
 const initialState = {
   filmList: [],
   commentUploadStatus: false,
-  activeFilm: {},
 };
 
 const ActionType = {
@@ -13,12 +12,6 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  loadActiveFilm: (film) => {
-    return {
-      type: ActionType.LOAD_FILMS,
-      payload: film,
-    };
-  },
   loadFilms: (films) => {
     return {
       type: ActionType.LOAD_FILMS,
@@ -34,12 +27,6 @@ const ActionCreator = {
 };
 
 const Operation = {
-  loadActiveFilm: (id) => (dispatch, getState, api) => {
-    return api.get(`/films/:${id}`)
-      .then((response) => {
-        dispatch(ActionCreator.loadActiveFilm(response.data));
-      });
-  },
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
       .then((response) => {
@@ -62,8 +49,6 @@ const reducer = (state = initialState, action) => {
       return extend(state, {filmList: action.payload});
     case ActionType.UPLOAD_COMMENTS:
       return extend(state, {comment: action.payload});
-    case ActionType.LOAD_ACTIVE_FILM:
-      return extend(state, {activeFilm: action.payload});
   }
   return state;
 };
