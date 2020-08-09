@@ -3,19 +3,27 @@ import PropTypes from 'prop-types';
 import Tabs from '../tabs/tabs.jsx';
 import FilmList from '../film-list/film-list.jsx';
 import AddRewiew from '../add-rewiew/add-rewiew.jsx';
+import {useParams} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getActiveFilm} from '../../reducer/data/selectors.js';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
 class FilmDetails extends PureComponent {
   constructor(props) {
     super(props);
 
   }
   render() {
-    const {films, onButtonHendler, onCardClickHendler, currentFilm, handlerButtonClick} = this.props;
+    debugger;
+    const {loadActiveFilm, activeFilm} = this.props;
+    const {id} = useParams();
+    loadActiveFilm(id);
+    const {films, onButtonHendler, onCardClickHendler, handlerButtonClick} = this.props;
     const isDetails = true;
     return <React.Fragment>
-      <section className="movie-card movie-card--full" style={{background: currentFilm.background_color}}>
+      <section className="movie-card movie-card--full" style={{background: activeFilm.background_color}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
+            <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header movie-card__head">
@@ -34,10 +42,10 @@ class FilmDetails extends PureComponent {
           </header>
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{currentFilm.name}</h2>
+              <h2 className="movie-card__title">{activeFilm.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{currentFilm.genre}</span>
-                <span className="movie-card__year">{currentFilm.released}</span>
+                <span className="movie-card__genre">{activeFilm.genre}</span>
+                <span className="movie-card__year">{activeFilm.released}</span>
               </p>
               <div className="movie-card__buttons">
                 <button onClick={handlerButtonClick} className="btn btn--play movie-card__button" type="button">
@@ -60,10 +68,10 @@ class FilmDetails extends PureComponent {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={currentFilm.posterImage} alt="The Grand Budapest Hotel poster" width={218} height={327} />
+              <img src={activeFilm.posterImage} alt="The Grand Budapest Hotel poster" width={218} height={327} />
             </div>
             <div className="movie-card__desc">
-              <Tabs currentFilm={currentFilm} />
+              <Tabs activeFilm={activeFilm} />
             </div>
           </div>
         </div>
@@ -71,7 +79,7 @@ class FilmDetails extends PureComponent {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList isDetails={isDetails} currentFilm={currentFilm} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={onCardClickHendler} />
+          <FilmList isDetails={isDetails} activeFilm={activeFilm} films={films} onButtonHendler={onButtonHendler} onCardClickHendler={onCardClickHendler} />
         </section>
         <footer className="page-footer">
           <div className="logo">
@@ -90,10 +98,21 @@ class FilmDetails extends PureComponent {
     </React.Fragment>;
   }
 }
-export default FilmDetails;
+const mapStateToProps = (state) => ({
+  activeFilm: getActiveFilm(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadActiveFilm: (id) => {
+    dispatch(DataOperation.loadActiveFilm(id));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilmDetails);
 
 FilmDetails.propTypes = {
-  currentFilm: PropTypes.object,
+  activeFilm: PropTypes.object,
+  loadActiveFilm: PropTypes.func,
   films: PropTypes.array,
   activeFilmId: PropTypes.number,
   onButtonHendler: PropTypes.func,
