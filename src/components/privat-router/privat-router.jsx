@@ -8,7 +8,7 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
 const PrivateRoute = (props) => {
   const {render, path, exact, authorizationStatus} = props;
-debugger
+  debugger
   return (
     <Route
       path={path}

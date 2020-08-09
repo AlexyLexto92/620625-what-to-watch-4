@@ -12,36 +12,28 @@ import { Switch, Route, Router } from 'react-router-dom';
 import history from "../../history.js";
 import { RouteConst } from '../../utils.js';
 import PrivateRoute from "../privat-router/privat-router.jsx";
-import MyList from "../my-list/my-list.jsx";
+import MyList from '../my-list/my-list.jsx';
+import FilmDetails from "../film-details/film-details.jsx";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       activeFilmId: 0,
-      isShowFullPlayer: false,
+
     };
-    this.handlerButtonClick = this.handlerButtonClick.bind(this);
-    this.handlerButtonCloseClick = this.handlerButtonCloseClick.bind(this);
 
     this.onCardClickHendler = this.onCardClickHendler.bind(this);
-  }
-  handlerButtonClick() {
-    this.setState({
-      isShowFullPlayer: true,
-    });
-  }
-  handlerButtonCloseClick() {
-    this.setState({
-      isShowFullPlayer: false,
-    });
   }
 
   _renderScreen() {
     const { authorizationStatus } = this.props;
     const { genre, releaseData, filmList, onButtonHendler } = this.props;
     const activeFilmId = this.state.activeFilmId;
-    const currentFilm = filmList.find((elem) => elem.id === activeFilmId);
+    const currentFilm = filmList[0];
+    if (!filmList) {
+      return null;
+    }
     return (<Main genre={genre}
       releaseData={releaseData}
       currentFilm={currentFilm}
@@ -49,21 +41,17 @@ class App extends PureComponent {
       films={filmList}
       onButtonHendler={onButtonHendler}
       onCardClickHendler={this.onCardClickHendler}
-      handlerButtonClick={this.handlerButtonClick}
-      handlerButtonCloseClick={this.handlerButtonCloseClick}
       prewiewFilm={filmList[0]} />);
   }
 
   render() {
-
     const { genre, releaseData, filmList, onButtonHendler, login, authorizationStatus } = this.props;
-    const activeFilmId = this.state.activeFilmId;
-    debugger
-    const currentFilm = filmList.find((elem) => elem.id === activeFilmId);
+    const { activeFilmId } = this.state;
+    const currentFilm = filmList[0];
     return (
       <Router history={history}>
         <Switch>
-          <Route exact path={RouteConst.MAIN}>
+          <Route exact path={RouteConst.ROOT}>
             {this._renderScreen()}
           </Route>
           <Route exact path={RouteConst.MAIN}>
@@ -74,21 +62,32 @@ class App extends PureComponent {
               films={filmList}
               onButtonHendler={onButtonHendler}
               onCardClickHendler={this.onCardClickHendler}
-              handlerButtonClick={this.handlerButtonClick}
-              handlerButtonCloseClick={this.handlerButtonCloseClick}
               prewiewFilm={filmList[0]} />
           </Route>
+          <Route exact path={RouteConst.FILM_DETAILS}>
+            < FilmDetails
+              currentFilm={currentFilm}
+              films={filmList}
+              onButtonHendler={onButtonHendler}
+              onCardClickHendler={this.onCardClickHendler} />;
+          </Route>
+          {/* <Route path={RouteConst.MY_LIST}
+            render={(props) => {
+              return <MyList props={props} />;
+            }}
+          >
+          </Route> */}
           <Route exact path={RouteConst.SING_IN}>
             <SingIn onSubmit={login} />
           </Route>
           <PrivateRoute exact path={RouteConst.MY_LIST}
             render={(props) => {
-              return <MyList historyProps={props} />;
+              return <MyList props={props} />;
             }}
             authorizationStatus={authorizationStatus}>
           </PrivateRoute>
           <Route exact path={RouteConst.PLAYER} >
-            <FullPlayer currentFilm={filmList[0]} handlerButtonCloseClick={this.handlerButtonCloseClick} />
+            <FullPlayer currentFilm={currentFilm} />
           </Route >
         </Switch >
       </Router >

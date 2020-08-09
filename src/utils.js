@@ -8,6 +8,7 @@ export const RouteConst = {
   MAIN: `/main`,
   SING_IN: `/login`,
   FILM_DETAILS: `/film-details`,
+  ID: `/:id`,
   MY_LIST: `/my-list`,
   PLAYER: `/player`,
 };

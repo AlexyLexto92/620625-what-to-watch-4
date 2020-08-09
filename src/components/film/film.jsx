@@ -59,7 +59,7 @@ class Film extends PureComponent {
             const id = evt.currentTarget.id;
             selectActiveFilm(id);
           }} className="small-movie-card__link"
-          to={`${RouteConst.MAIN}${RouteConst.FILM_DETAILS}/:${film.id}?`}>
+          to={`${RouteConst.MAIN}${RouteConst.FILM_DETAILS}/${film.id}`}>
           {film.name}
         </Link>
       </h3>

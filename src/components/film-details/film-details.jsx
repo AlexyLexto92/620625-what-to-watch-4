@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '../tabs/tabs.jsx';
 import FilmList from '../film-list/film-list.jsx';
-import FullPlayer from '../full-player/full-player.jsx';
 import AddRewiew from '../add-rewiew/add-rewiew.jsx';
 class FilmDetails extends PureComponent {
   constructor(props) {
@@ -10,13 +9,10 @@ class FilmDetails extends PureComponent {
 
   }
   render() {
-    const {films, onButtonHendler, onCardClickHendler, currentFilm, handlerButtonClick, isShowFullPlayer, handlerButtonCloseClick} = this.props;
+    const {films, onButtonHendler, onCardClickHendler, currentFilm, handlerButtonClick} = this.props;
     const isDetails = true;
-    if (isShowFullPlayer) {
-      return <FullPlayer currentFilm={currentFilm} handlerButtonCloseClick={handlerButtonCloseClick}/>;
-    }
     return <React.Fragment>
-      <section className="movie-card movie-card--full" style={{background: currentFilm.backgroundColor}}>
+      <section className="movie-card movie-card--full" style={{background: currentFilm.background_color}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
@@ -102,7 +98,6 @@ FilmDetails.propTypes = {
   activeFilmId: PropTypes.number,
   onButtonHendler: PropTypes.func,
   onCardClickHendler: PropTypes.func,
-  isShowFullPlayer: PropTypes.bool,
   handlerButtonClick: PropTypes.func,
   handlerButtonCloseClick: PropTypes.func,
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from './components/app/app.jsx';
-import {films} from './mocks/films.js';
 import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from 'react-redux';
@@ -24,13 +23,11 @@ export const settings = {
   genre: `Sport`,
   releaseData: 1992,
 };
-
-const onButtonHendler = () => { };
 store.dispatch(DataOperation.loadFilms());
 store.dispatch(UserOperation.checkAuth());
 ReactDOM.render(
     <Provider store={store} >
-      <App genre={settings.genre} releaseData={settings.releaseData} films={films} onButtonHendler={onButtonHendler} />
+      <App genre={settings.genre} releaseData={settings.releaseData} />
     </Provider>,
     document.querySelector(`#root`)
 );
