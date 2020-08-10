@@ -35,7 +35,6 @@ export const getFilteredList = createSelector(
 
 export const getActiveFilm = createSelector(getFilms, getActiveIdFilm, (films, id) => {
   let activeFilm = films.find((it) => it.id === id);
-  debugger
   return activeFilm;
 
 });

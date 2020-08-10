@@ -41,8 +41,7 @@ class Film extends PureComponent {
 
   }
   render() {
-    const {film, onCardClickHendler,getActiveFilmId, activeFilm} = this.props;
-debugger
+    const {film, onCardClickHendler,getActiveFilmId} = this.props;
     const {isPlaying} = this.state;
     return <article className="small-movie-card catalog__movies-card" id={film.id} onMouseEnter={this.handlerMouseEnter} onMouseLeave={this.handlerMouseLeave}
       onClick={(evt) => {
